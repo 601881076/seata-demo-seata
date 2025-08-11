@@ -1,0 +1,55 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: purchase-server
+  profiles:
+    active: dev
+--- ###################################### seata配置 #########################
+seata:
+  # seata 客户端配置
+  enabled: true # spring 自动装配
+  enable-auto-data-source-proxy: true # 开启数据源自动代理
+  data-source-proxy-mode: AT # AT模式
+  transport:
+    enable-client-batch-send-request: true #客户端事务消息请求是否批量合并发送,默认true，false单条发送
+  # service.vgroupMapping.default_tx_group : default_tx_group 为分组，配置项值为 TC 集群名
+  tx-service-group: default_tx_group # 事务分组: 可以自定义，多个微服务只有在同一个事务分组中，分布式事务才能生效，也就是多个微服务改参数要保持一致.
+  application-id: purchase # 该服务事务id ，同一分组下的 的微服务 需要进行不同的定义
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+
+  # seata 注册中心配置
+  registry:
+    type: nacos
+    # application，server-addr，group，namespace，username，password 客户端和服务端保持一致；
+    nacos:
+      application: seata-server
+      server-addr: 47.115.218.223:8848
+      group: SEATA_GROUP  # 与nacos服务列表的分组名称对应
+      namespace: seata
+      username: nacos
+      password: U6uu9TWm
+  # seata 配置中心设置
+  config:
+    type: nacos
+    nacos:
+      server-addr: 47.115.218.223:8848
+      namespace: seata
+      group: SEATA_GROUP  # 与nacos配置列表的Group对应
+      username: nacos
+      password: U6uu9TWm
+      data-id: seataServer.properties
+
+--- ###################################### nacos 开发环境 #########################
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.115.218.223:8848
+        namespace: ${spring.profiles.active}
