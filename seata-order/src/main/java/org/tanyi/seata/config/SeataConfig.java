@@ -1,8 +1,8 @@
 package org.tanyi.seata.config;
 
-import io.seata.common.util.StringUtils;
-import io.seata.spring.annotation.GlobalTransactionScanner;
-import io.seata.spring.boot.autoconfigure.properties.SeataProperties;
+import org.apache.seata.common.util.StringUtils;
+import org.apache.seata.spring.annotation.GlobalTransactionScanner;
+import org.apache.seata.spring.boot.autoconfigure.properties.SeataProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

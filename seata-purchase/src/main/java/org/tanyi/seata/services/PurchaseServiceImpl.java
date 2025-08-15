@@ -1,6 +1,6 @@
 package org.tanyi.seata.services;
 
-import io.seata.spring.annotation.GlobalTransactional;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.tanyi.seata.api.AccountFeignClient;
